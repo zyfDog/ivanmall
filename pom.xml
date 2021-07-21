@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.zyf.ivanmall</groupId>
+    <artifactId>ivanmall</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>ivanmall</name>
+    <description>聚合服务</description>
+    <!-- <packaging>pom</packaging>是将多个model合并,通过它来访问<modules>里配置的各个子项目。
+    pom 项目里没有java代码，也不执行任何代码，只是为了聚合工程或传递依赖用的。-->
+    <packaging>pom</packaging>
+    <!--所有用Maven管理的真实的项目都应该是分模块的，每个模块都对应着一个pom.xml。
+    它们之间通过继承和聚合（也称作多模块，multi-module）相互关联。-->
+    <!--使用聚合，一次构建全部模块-->
+    <modules>
+        <module>ivanmall-coupon</module>
+        <module>ivanmall-member</module>
+        <module>ivanmall-order</module>
+        <module>ivanmall-product</module>
+        <module>ivanmall-ware</module>
+    </modules>
+
+</project>
