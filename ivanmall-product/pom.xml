@@ -19,6 +19,11 @@
     </properties>
     <dependencies>
         <dependency>
+            <groupId>com.zyf.ivanmall</groupId>
+            <artifactId>ivanmall-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
@@ -32,7 +37,17 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
+    <!--https://www.jianshu.com/p/651f4485186f/-->
+    <!--dependencyManagement 中的 dependencies 并不影响项目的依赖项；而独立dependencies元素则影响项目的依赖项。
+    只有当外层的dependencies元素中没有指明版本信息时，dependencyManagement 中的 dependencies 元素才起作用。
+    一个是项目依赖，一个是maven项目多模块情况时作依赖管理控制的。-->
     <dependencyManagement>
         <dependencies>
             <dependency>

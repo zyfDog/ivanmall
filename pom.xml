@@ -19,6 +19,9 @@
         <module>ivanmall-order</module>
         <module>ivanmall-product</module>
         <module>ivanmall-ware</module>
+        <module>renren-fast</module>
+        <module>renren-generator</module>
+        <module>ivanmall-common</module>
     </modules>
 
 </project>
