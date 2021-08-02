@@ -5,6 +5,14 @@ spring:
     password: root
     url: jdbc:mysql://192.168.56.10:3306/ivanmall_ums?characterEncoding=utf8
     driver-class-name: com.mysql.jdbc.Driver
+  #配置 Nacos Server 地址
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  # The property is used to create the ID.
+  application:
+    name: ivanmall-member
 
 # MapperScan
 # sql映射文件位置

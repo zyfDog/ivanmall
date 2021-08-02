@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.2</version>
+        <version>2.1.8.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.zyf.ivanmall</groupId>
@@ -15,7 +15,7 @@
     <description>Ivan商城-优惠券服务</description>
     <properties>
         <java.version>11</java.version>
-        <spring-cloud.version>2020.0.3</spring-cloud.version>
+        <spring-cloud.version>Greenwich.SR3</spring-cloud.version>
     </properties>
     <dependencies>
         <dependency>
@@ -55,7 +55,26 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.5.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                    <!-- "Since 3.0, the default compiler is javax.tools.JavaCompiler -->
+                    <!-- (if you are using java 1.6) and is used to compile Java sources. -->
+                    <!-- If you want to force the plugin using javac, you must configure -->
+                    <!-- the plugin option forceJavacCompilerUse." -->
+                    <!-- ElPaaso compilation failed if set to false with multitrhead -->
+                    <!-- compilation enabled (-T3). -->
+                    <!-- Try to disable it after switching to jdk 1.7 -->
+                    <forceJavacCompilerUse>true</forceJavacCompilerUse>
+                    <!-- workaround maven compiler 3.1 bug which incorrectly recompiles some resources that have not changed See https://jira.codehaus.org/browse/MCOMPILER-209
+                        and http://stackoverflow.com/questions/17944108/maven-compiler-plugin-always-detecting-a-set-of-sources-as-stale -->
+                    <useIncrementalCompilation>false</useIncrementalCompilation>
+                </configuration>
             </plugin>
         </plugins>
     </build>
