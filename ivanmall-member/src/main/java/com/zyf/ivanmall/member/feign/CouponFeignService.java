@@ -4,8 +4,11 @@ import com.zyf.common.utils.R;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-//告诉spring cloud这个接口是一个远程客户端，要调用coupon服务(nacos中找到)，
+// @FeignClient告诉spring cloud这个接口是一个远程客户端，要调用coupon服务(nacos中找到)，
 // 具体是调用coupon服务的/coupon/coupon/member/list对应的方法
+// @FeignClient+@RequestMapping构成远程调用的坐标
+// 其他类中看似只是调用了CouponFeignService.membercoupons()，
+// 而实际上该方法跑去nacos里和rpc里调用了才拿到东西返回
 @FeignClient("ivanmall-coupon")
 public interface CouponFeignService {
     // 远程服务的url
