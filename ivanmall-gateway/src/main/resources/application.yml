@@ -10,3 +10,23 @@ spring:
           uri: https://www.qq.com
           predicates:
             - Query=url, qq
+
+        ## 精确路由，先适配
+        - id: product_route
+          uri: lb://ivanmall-product
+          predicates:
+            - Path=/api/product/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+          ## http://localhost:88/api/product/category/list/tree ——————> http://localhost:10000/product/category/list/tree
+
+        ## 模糊路由
+        - id: admin_route
+          uri: lb://renren-fast # 路由给renren-fast lb代表负载均衡
+          predicates:  # 什么情况下路由给它
+            - Path=/api/** # 默认前端项目都带上api前缀，就是我们前面题的localhost:88/api
+          filters:
+            - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment}  # 把/api/* 改变成 /renren-fast/*
+          ## 前端项目，/api
+          ## http://localhost:88/api/captcha.jpg  ————————>  http://localhost:8080/renren-fast/captcha.jpg
+

@@ -1,6 +1,5 @@
 package com.zyf.ivanmall.product.controller;
 
-import com.zyf.common.utils.PageUtils;
 import com.zyf.common.utils.R;
 import com.zyf.ivanmall.product.entity.CategoryEntity;
 import com.zyf.ivanmall.product.service.CategoryService;
@@ -8,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 
@@ -26,14 +26,15 @@ public class CategoryController {
     private CategoryService categoryService;
 
     /**
-     * 列表
+     * 查出所有分类以及子分类，以树形结构组装起来
      */
-    @RequestMapping("/list")
+    @RequestMapping("/list/tree")
     //模版生成shiro: @RequiresPermissions("product:category:list")
     public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = categoryService.queryPage(params);
 
-        return R.ok().put("page", page);
+        List<CategoryEntity> entities = categoryService.listWithTree();
+
+        return R.ok().put("data", entities);
     }
 
 
@@ -45,7 +46,7 @@ public class CategoryController {
     public R info(@PathVariable("catId") Long catId){
 		CategoryEntity category = categoryService.getById(catId);
 
-        return R.ok().put("category", category);
+        return R.ok().put("data", category);
     }
 
     /**
@@ -55,6 +56,18 @@ public class CategoryController {
     //模版生成shiro: @RequiresPermissions("product:category:save")
     public R save(@RequestBody CategoryEntity category){
 		categoryService.save(category);
+
+        return R.ok();
+    }
+
+    /**
+     * 修改排序
+     */
+    @RequestMapping("/update/sort")
+    //模版生成shiro: @RequiresPermissions("product:category:update")
+    public R updateSort(@RequestBody CategoryEntity[] categories){
+
+        categoryService.updateBatchById(Arrays.asList(categories));
 
         return R.ok();
     }
@@ -72,11 +85,17 @@ public class CategoryController {
 
     /**
      * 删除
+     * @RequestBody:获取请求体，必须发送POST请求
+     * SpringMVC自动将请求体的数据（json）,转为对应的对象
      */
     @RequestMapping("/delete")
     //模版生成shiro: @RequiresPermissions("product:category:delete")
     public R delete(@RequestBody Long[] catIds){
-		categoryService.removeByIds(Arrays.asList(catIds));
+
+        //1、检查当前删除的菜单，是否被别的地方引用
+		// categoryService.removeByIds(Arrays.asList(catIds));
+
+		categoryService.removeMenuByIds(Arrays.asList(catIds));
 
         return R.ok();
     }

@@ -52,6 +52,12 @@
 	</properties>
 
 	<dependencies>
+		<!--引入nacos配置中心、注册中心-->
+		<dependency>
+			<groupId>com.zyf.ivanmall</groupId>
+			<artifactId>ivanmall-common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
